@@ -14,22 +14,8 @@ Grafana allows you to query, visualize, alert on and understand your metrics no 
 - **Explore Logs:** Experience the magic of switching from metrics to logs with preserved label filters. Quickly search through all your logs or streaming them live.
 - **Alerting:** Visually define alert rules for your most important metrics. Grafana will continuously evaluate and send notifications to systems like Slack, PagerDuty, VictorOps, OpsGenie.
 - **Mixed Data Sources:** Mix different data sources in the same graph! You can specify a data source on a per-query basis. This works for even custom datasources.
-
-### Grafana 7.0 and GrafanaCONline
-
-- Grafana 7.0 Beta is [available for download](https://grafana.com/grafana/download).
-- Read [what's is new](https://grafana.com/docs/grafana/latest/guides/whats-new-in-v7-0/).
-
-Want to learn more about Grafana 7 and more? Sign up for our online conference!
-
-[![GrafanaCONline](public/img/grafanaconline.png)](https://grafana.com/about/events/grafanacon/2020/?source=grafana-readme)
-
 ## Get started
-
-- [Get Grafana](https://grafana.com/get)
 - [Installation guides](http://docs.grafana.org/installation/)
-
-Unsure if Grafana is for you? Watch Grafana in action on [play.grafana.org](https://play.grafana.org/)!
 
 ## Documentation
 
@@ -42,6 +28,15 @@ If you're interested in contributing to the Grafana project:
 - Start by reading the [Contributing guide](/CONTRIBUTING.md).
 - Learn how to set up your local environment, in our [Developer guide](/contribute/developer-guide.md).
 - Explore our [beginner-friendly issues](https://github.com/grafana/grafana/issues?q=is%3Aopen+is%3Aissue+label%3A%22beginner+friendly%22).
+
+## Installation Windows
+
+- Node
+- Yarn
+- Go
+- MinGW [for gcc] https://jmeubank.github.io/tdm-gcc/
+- yarn install
+- run server : go run ./pkg/cmd/grafana-server/
 
 ## Get involved
 

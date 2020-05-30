@@ -158,38 +158,70 @@ func (hs *HTTPServer) setIndexViewData(c *models.ReqContext) (*dtos.IndexViewDat
 	}
 
 	if c.IsSignedIn {
-		// Only set login if it's different from the name
-		var login string
-		if c.SignedInUser.Login != c.SignedInUser.NameOrFallback() {
-			login = c.SignedInUser.Login
-		}
-		profileNode := &dtos.NavLink{
-			Text:         c.SignedInUser.NameOrFallback(),
-			SubTitle:     login,
-			Id:           "profile",
-			Img:          data.User.GravatarUrl,
-			Url:          setting.AppSubUrl + "/profile",
-			HideFromMenu: true,
-			SortWeight:   dtos.WeightProfile,
-			Children: []*dtos.NavLink{
-				{Text: "Preferences", Id: "profile-settings", Url: setting.AppSubUrl + "/profile", Icon: "sliders-v-alt"},
-				{Text: "Change Password", Id: "change-password", Url: setting.AppSubUrl + "/profile/password", Icon: "lock", HideFromMenu: true},
-			},
+		if c.OrgRole == models.ROLE_ADMIN || c.OrgRole == models.ROLE_EDITOR || setting.ViewersCanEdit {
+			// Only set login if it's different from the name
+			var login string
+			if c.SignedInUser.Login != c.SignedInUser.NameOrFallback() {
+				login = c.SignedInUser.Login
+			}
+			profileNode := &dtos.NavLink{
+				Text:         c.SignedInUser.NameOrFallback(),
+				SubTitle:     login,
+				Id:           "profile",
+				Img:          data.User.GravatarUrl,
+				Url:          setting.AppSubUrl + "/profile",
+				HideFromMenu: true,
+				SortWeight:   dtos.WeightProfile,
+				Children: []*dtos.NavLink{
+					{Text: "Preferences", Id: "profile-settings", Url: setting.AppSubUrl + "/profile", Icon: "sliders-v-alt"},
+					{Text: "Change Password", Id: "change-password", Url: setting.AppSubUrl + "/profile/password", Icon: "lock", HideFromMenu: true},
+				},
+			}
+
+			if !setting.DisableSignoutMenu {
+				// add sign out first
+				profileNode.Children = append(profileNode.Children, &dtos.NavLink{
+					Text:         "Sign out",
+					Id:           "sign-out",
+					Url:          setting.AppSubUrl + "/logout",
+					Icon:         "arrow-from-right",
+					Target:       "_self",
+					HideFromTabs: true,
+				})
+			}
+
+			data.NavTree = append(data.NavTree, profileNode)
+		} else {
+			var login string
+			if c.SignedInUser.Login != c.SignedInUser.NameOrFallback() {
+				login = c.SignedInUser.Login
+			}
+			profileNode := &dtos.NavLink{
+				Text:         c.SignedInUser.NameOrFallback(),
+				SubTitle:     login,
+				Id:           "profile",
+				Img:          data.User.GravatarUrl,
+				Url:          setting.AppSubUrl + "/profile",
+				HideFromMenu: true,
+				SortWeight:   dtos.WeightProfile,
+				Children:     []*dtos.NavLink{},
+			}
+
+			if !setting.DisableSignoutMenu {
+				// add sign out first
+				profileNode.Children = append(profileNode.Children, &dtos.NavLink{
+					Text:         "Sign out",
+					Id:           "sign-out",
+					Url:          setting.AppSubUrl + "/logout",
+					Icon:         "arrow-from-right",
+					Target:       "_self",
+					HideFromTabs: true,
+				})
+			}
+
+			data.NavTree = append(data.NavTree, profileNode)
 		}
 
-		if !setting.DisableSignoutMenu {
-			// add sign out first
-			profileNode.Children = append(profileNode.Children, &dtos.NavLink{
-				Text:         "Sign out",
-				Id:           "sign-out",
-				Url:          setting.AppSubUrl + "/logout",
-				Icon:         "arrow-from-right",
-				Target:       "_self",
-				HideFromTabs: true,
-			})
-		}
-
-		data.NavTree = append(data.NavTree, profileNode)
 	}
 
 	if setting.AlertingEnabled && (c.OrgRole == models.ROLE_ADMIN || c.OrgRole == models.ROLE_EDITOR) {

@@ -1,3 +1,54 @@
 @import 'variables.generated';
 @import 'variables.light.generated';
 @import 'grafana';
+
+.sidemenu {
+  background: #85b94d !important;
+  -webkit-box-shadow: 5px 0px 10px -5px #52545c !important;
+  box-shadow: 5px 0px 10px -5px #e8e8e8 !important;
+}
+.navbar {
+  background-color: #e8e8e8 !important;
+}
+.sidemenu__logo {
+  background-color: #85b94d !important;
+}
+.sidemenu-item:hover {
+  background-color: #1574b4 !important;
+}
+
+#panel-1 .panel-content.baron.baron__root.baron__clipper.panel-content--scrollable {
+  background-color: #e8e8e8 !important;
+}
+
+.page-header-canvas {
+  background: #e8e8e8 !important;
+}
+
+.gf-form-button-row a,
+.gf-form-button-row button {
+  background: #85b94d !important;
+}
+.navbar-button--zoom {
+  background: #85b94d !important;
+  color: #fff;
+}
+.refresh-picker .navbar-button--border-right-0 {
+  background: #85b94d;
+  color: #fff;
+}
+
+.navbar-button--tight {
+  background-color: #85b94d !important;
+  color: #fff;
+}
+
+.footer {
+  color: #5c655f !important;
+}
+.sidemenu-link {
+  color: #52545c !important;
+}
+.sidemenu__logo img {
+  -webkit-filter: drop-shadow(0px 3px 5px #fff);
+}
